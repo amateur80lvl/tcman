@@ -82,7 +82,9 @@ class CircuitsManagerBase:
 
             # Maintain desired number of circuits.
             # Create this many circuits concurrently:
-            num_concurrent_circuits = max(3, self.concurrency * self.max_circuits // 100)
+            num_concurrent_circuits = min(self.max_circuits,
+                                          max(3, self.concurrency * self.max_circuits // 100)
+                                      )
             while True:
                 await asyncio.sleep(1)
 
