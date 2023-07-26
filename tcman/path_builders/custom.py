@@ -32,7 +32,7 @@ class CustomPathBuilder:
 
     def is_path_usable(self, path):
         '''
-        Path is usable for us if it matches one in our custom paths.
+        Path is usable for us if it matches one of our custom paths.
         '''
         return path in self.__paths
 
