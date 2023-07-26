@@ -90,8 +90,7 @@ class CircuitsManagerBase:
 
                 # check control connection is up
                 try:
-                    if await self.controller.send_request('GETINFO version') is None:
-                        break
+                    await self.controller.send_request('GETINFO version')
                 except Exception:
                     self.logger.debug(traceback.format_exc())
                     break
