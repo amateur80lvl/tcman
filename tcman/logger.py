@@ -13,5 +13,5 @@ import logging
 
 class Logger:
 
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger('tcman')
     logger.addHandler(logging.StreamHandler())
