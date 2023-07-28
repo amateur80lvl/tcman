@@ -177,7 +177,8 @@ class CircuitsManagerBase:
 
     def _handle_circuit(self, circ):
         if circ['status'] == 'BUILT':
-            self._circuits_being_created.pop(circ['id'], None)
+            with suppress(KeyError):
+                del self._circuits_being_created[circ['id']]
 
             if self.is_path_usable(circ['path']):
                 self.logger.info('Using created circuit %s', circ['id'])
@@ -189,7 +190,8 @@ class CircuitsManagerBase:
                 self.forget_circuit(circ)
 
         elif circ['status'] in ['CLOSED', 'FAILED']:
-            self._circuits_being_created.pop(circ['id'], None)
+            with suppress(KeyError):
+                del self._circuits_being_created[circ['id']]
 
             self.logger.info('%s circuit %s', circ['status'], circ['id'])
             self.forget_path(circ['path'])
