@@ -8,6 +8,7 @@ The basic implementation of circuits management.
 '''
 
 import asyncio
+from contextlib import suppress
 import time
 import traceback
 
@@ -129,17 +130,13 @@ class CircuitsManagerBase:
 
         finally:
             # hand off streams management to Tor
-            try:
+            with suppress(Exception):
                 await self.controller.set_conf('__LeaveStreamsUnattached', '0')
-            except Exception:
-                pass
 
             # turn events off
-            try:
+            with suppress(Exception):
                 self.controller.set_event_handler(None)
                 await self.controller.set_events(None)
-            except Exception:
-                pass
 
 
     async def _collect_existing_cirsuits(self):

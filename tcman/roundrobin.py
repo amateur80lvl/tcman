@@ -7,6 +7,8 @@ Use circuits for streams in round robin way.
 :license: LGPLv3, see LICENSE for details.
 '''
 
+from contextlib import suppress
+
 class RoundRobinManager:
 
     def __init__(self, max_circuits=10, **kwargs):
@@ -25,10 +27,8 @@ class RoundRobinManager:
         '''
         Forget circuit path.
         '''
-        try:
+        with suppress(ValueError):
             self.__circuit_ids.remove(circ['id'])
-        except ValueError:
-            pass
 
     def choose_circuit(self):
         '''
